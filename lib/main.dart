@@ -7,11 +7,8 @@ import 'package:jeezy/screens/loading_decider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize Firebase first
   await Firebase.initializeApp();
   
-  // Enable auth persistence with error handling
   try {
     await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
     print("Auth persistence enabled successfully");
@@ -75,10 +72,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
             appBarTheme: const AppBarTheme(
-              // backgroundColor: Color(0xFFF6ECE1),
               elevation: 0,
-              // iconTheme: IconThemeData(color: Colors.white),
-              // titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
             ),
             primarySwatch: Colors.blue,
             pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -125,7 +119,7 @@ class MyApp extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasData) {
-                    return LoadingDecider(); // Decides whether to show FirstTimeSetup or HomePage
+                    return LoadingDecider();
                   } else {
                     return LoginPage();
                   }

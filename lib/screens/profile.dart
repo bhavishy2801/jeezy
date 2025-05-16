@@ -65,7 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
       }, SetOptions(merge: true));
 
       if (mounted) {
-        // Return the updated user data
         Navigator.of(context).pop(updatedUser);
       }
 
@@ -76,14 +75,13 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
       await Future.delayed(Duration(seconds: 1));
-      // Animate pop with a fade transition
       Navigator.of(context).pop();
       await Navigator.of(context).push(PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) {
           return FadeTransition(
         opacity: Tween<double>(begin: 0, end: 1).animate(animation),
-        child: Container(), // Empty container, just for animation
+        child: Container(),
           );
         },
         transitionDuration: Duration(milliseconds: 400),
@@ -97,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final bool isDark = widget.isDark;
 
-  // Use conditional colors depending on isDark
   final darkBackground = isDark ? Color.fromARGB(255, 12, 20, 41) : Colors.white;
   final cardColor = isDark ? Color.fromARGB(106, 39, 55, 84) : Colors.white;
   final fillColor = isDark ? Color(0xFF2A2A2A) : Colors.grey[200]!;

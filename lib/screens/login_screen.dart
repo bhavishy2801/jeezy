@@ -22,14 +22,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _checkAlreadySignedIn(); // Auto-login if user exists
+    _checkAlreadySignedIn();
   }
 
       Future<void> _checkAlreadySignedIn() async {
       final User? user = _auth.currentUser;
       if (user != null) {
         print('User already signed in: ${user.uid}');
-        await _navigateAfterLogin(user);  // Important: call this method, not just navigate directly
+        await _navigateAfterLogin(user);
       } else {
         print('No user signed in yet.');
       }
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleGoogleAuth() async {
     try {
-      await _googleSignIn.signOut(); // force account picker
+      await _googleSignIn.signOut();
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return;
 
@@ -134,7 +134,6 @@ class _LoginPageState extends State<LoginPage> {
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
-          // Auto-sign in on Android sometimes
           await _auth.signInWithCredential(credential);
           final user = _auth.currentUser;
           if (user != null && mounted) {
@@ -160,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _showOtpDialog() {
-    if (_isOtpDialogOpen) return; // prevent multiple dialogs
+    if (_isOtpDialogOpen) return;
     _isOtpDialogOpen = true;
 
     TextEditingController otpController = TextEditingController();
@@ -188,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                   await _auth.signInWithCredential(credential);
                   final user = _auth.currentUser;
                   if (user != null && mounted) {
-                    Navigator.pop(context); // close OTP dialog
+                    Navigator.pop(context);
                     await _navigateAfterLogin(user);
                   }
                 } catch (e) {
@@ -204,14 +203,27 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     ).then((_) {
-      _isOtpDialogOpen = false; // reset after dialog closes
+      _isOtpDialogOpen = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        color: Colors.grey.shade900, // Set a background color if needed
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            colors: [
+            Color(0xFF232526), // Charcoal
+            Color(0xFF1a1a2e), // Deep navy
+            Color(0xFF0f2027), // Midnight blue
+            Color(0xFF2c5364), // Blue gray
+            ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Material(
+        color: Colors.transparent,
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -227,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 24,
                     fontFamily: GoogleFonts.comicNeue().fontFamily,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Add color since AppBar is removed
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -266,6 +278,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 }

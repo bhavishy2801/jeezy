@@ -23,17 +23,15 @@ class LoadingDecider extends StatelessWidget {
 
         final userData = snapshot.data;
 
-        // Check if user document exists and contains 'user_class' and 'jee_year'
         if (userData == null ||
             !userData.exists ||
             userData.data() == null ||
             !(userData.data() as Map).containsKey('user_class') ||
             !(userData.data() as Map).containsKey('jee_year')) {
-          // Missing data => ask for first time setup
+
           return FirstTimeSetup();
         }
         
-        // Data present => go to home page
         return HomePage(user: user);
       },
     );

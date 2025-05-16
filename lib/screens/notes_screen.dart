@@ -17,7 +17,6 @@ class NotesScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add note action
         },
         child: const Icon(Icons.add),
       ),

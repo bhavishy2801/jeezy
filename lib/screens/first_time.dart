@@ -28,7 +28,6 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
   @override
   void dispose() {
     _nameController.dispose();
-    // If user closes app or navigates away without saving
     if (!_isDataSaved) {
       FirebaseAuth.instance.signOut();
     }
@@ -41,18 +40,15 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         try {
-          // Update display name in Firebase Auth
           await user.updateDisplayName(_nameController.text);
-          await user.reload(); // Reload to get updated user data
+          await user.reload();
 
-          // Save additional info to Firestore
           await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
             'display_name': _nameController.text,
             'user_class': selectedClass,
             'jee_year': selectedYear,
           }, SetOptions(merge: true));
 
-          // Mark profile as complete
           final prefs = await SharedPreferences.getInstance();
           await prefs.setBool('isProfileComplete', true);
 
@@ -97,7 +93,6 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
                   child: Column(
                     children: [
                       SizedBox(height: 20),
-                      // Name Text Field
                       TextFormField(
                         controller: _nameController,
                         style: TextStyle(color: Colors.white),
@@ -116,7 +111,6 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
                             : null,
                       ),
                       SizedBox(height: 30),
-                      // Class Dropdown
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: "Select your class",
@@ -134,7 +128,6 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
                         validator: (val) => val == null ? "Please select your class" : null,
                       ),
                       SizedBox(height: 30),
-                      // Year Dropdown
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: "Select JEE appearing year",
@@ -152,7 +145,6 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
                         validator: (val) => val == null ? "Please select your JEE year" : null,
                       ),
                       SizedBox(height: 40),
-                      // Save Button
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 50),
