@@ -5,8 +5,8 @@ import 'package:jeezy/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jeezy/screens/profile.dart';
 import 'package:jeezy/main.dart';
-import 'package:jeezy/screens/notes_screen.dart'; // Create these screens
-import 'package:jeezy/screens/tests_screen.dart';  // Create these screens
+import 'package:jeezy/screens/notes_screen.dart';
+import 'package:jeezy/screens/tests_screen.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -21,9 +21,8 @@ class _HomePageState extends State<HomePage> {
   String? userClass;
   String? jeeYear;
   String? displayName;
-  int _currentIndex = 0; // For bottom navigation
+  int _currentIndex = 0;
 
-  // Pages for bottom navigation
   final List<Widget> _pages = [];
 
 
@@ -105,7 +104,7 @@ class _HomePageState extends State<HomePage> {
   },
 ),
           ),
-          body: _pages[_currentIndex], // Show current page based on bottom nav
+          body: _pages[_currentIndex],
           drawer: _buildDrawer(context, isDark, theme),
           bottomNavigationBar: _buildBottomNavBar(isDark, theme),
         );
@@ -119,17 +118,17 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 40),
-          // Profile Section
-          _buildProfileSection(context, isDark),
+
+          _buildProfileSection(context, isDark), // Profile Section
           const Divider(),
-          // Dark Mode Toggle
-          _buildDarkModeToggle(isDark),
+
+          _buildDarkModeToggle(isDark), // Dark Mode Toggle
           const Divider(),
-          // Navigation Items
-          _buildDrawerNavigationItems(context, theme),
+
+          _buildDrawerNavigationItems(context, theme), // Navigation Items
           const Divider(),
-          // Sign Out Button
-          _buildSignOutButton(context, isDark),
+
+          _buildSignOutButton(context, isDark), // Sign Out Button
         ],
       ),
     );
@@ -163,7 +162,7 @@ class _HomePageState extends State<HomePage> {
               transitionDuration: Duration(milliseconds: 400),
             ),
             );
-            setState(() {}); // Force rebuild to reload updated data
+            setState(() {});
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -225,15 +224,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildDrawerNavigationItems(BuildContext context, ThemeData theme) {
     return Column(
       children: [
-        // _buildDrawerItem(
-        //   context,
-        //   icon: Icons.home,
-        //   title: "Home",
-        //   onTap: () {
-        //     setState(() => _currentIndex = 0);
-        //     Navigator.pop(context);
-        //   },
-        // ),
+        
         _buildDrawerItem(
           context,
           icon: Icons.note,
@@ -349,7 +340,7 @@ class _HomePageState extends State<HomePage> {
             );
 
             if (updatedUser != null) {
-              setState(() {}); // Force rebuild to update the UI
+              setState(() {});
             }
           }
         },
@@ -379,7 +370,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// Extract your home content to this widget
 class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -387,7 +377,6 @@ class HomeContent extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 20),
-          // Your home content here
         ],
       ),
     );
