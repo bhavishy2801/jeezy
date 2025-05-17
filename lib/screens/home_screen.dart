@@ -7,6 +7,7 @@ import 'package:jeezy/screens/profile.dart';
 import 'package:jeezy/main.dart';
 import 'package:jeezy/screens/notes_screen.dart';
 import 'package:jeezy/screens/tests_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -128,7 +129,85 @@ class _HomePageState extends State<HomePage> {
           _buildDrawerNavigationItems(context, theme), // Navigation Items
           const Divider(),
 
-          _buildSignOutButton(context, isDark), // Sign Out Button
+
+        ListTile(
+          leading: Icon(Icons.share, color: theme.colorScheme.primary),
+          title: Text("Share App"),
+          onTap: () async {
+            final box = context.findRenderObject() as RenderBox?;
+            Navigator.pop(context);
+
+            final result = await SharePlus.instance.share(
+              ShareParams(
+                text: '📱 Ace your JEE preparation with *Jeezy*! 🚀\n\n'
+                'Get access to high-quality notes, mock tests, and curated materials for both JEE Main & Advanced — all in one place.\n\n'
+                'Download now and supercharge your prep: https://github.com/bhavishy2801\n\n',
+                subject: '🔥 Must-Have App for Every JEE Aspirant – Jeezy!',
+                title: 'Check out Jeezy – your ultimate JEE prep companion!',
+                sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+              ),
+            );
+
+            // final scaffoldMessenger = ScaffoldMessenger.of(context);
+            // scaffoldMessenger.showSnackBar(
+            //   SnackBar(
+            //     content: Text('Share result: ${result.status.name}', style: TextStyle(color: Colors.white),),
+            //     duration: const Duration(seconds: 2),
+            //     backgroundColor: Color.fromARGB(255, 12, 20, 41),
+            //   ),
+            // );
+          },
+        ),
+
+        ListTile(
+          leading: Icon(Icons.feedback, color: theme.colorScheme.primary),
+          title: Text("Send Feedback"),
+          onTap: () {
+            // Open mail app or feedback form link
+            Navigator.pop(context);
+          },
+        ),
+
+        ListTile(
+          leading: Icon(Icons.privacy_tip, color: theme.colorScheme.primary),
+          title: Text("Privacy Policy"),
+          onTap: () {
+            // Navigate to privacy policy screen or open URL
+            Navigator.pop(context);
+          },
+        ),
+
+
+        _buildSignOutButton(context, isDark), // Sign Out Button
+
+        Expanded(child: Container()),  // pushes the text to bottom
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          child: Text(
+            "Version 1.0.0",
+            style: TextStyle(
+              fontSize: 14,
+              color: isDark ? Colors.grey[400] : Colors.grey[600],
+              fontWeight: FontWeight.w700,
+              fontFamily: GoogleFonts.comicNeue().fontFamily,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Text(
+              'Made with ❤ by Bhavishy Agrawal',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.grey[400] : Colors.grey[600],
+                // fontStyle: FontStyle.italic,
+                fontFamily: GoogleFonts.comicNeue().fontFamily,
+              ),
+            ),
+          ),
+        ),
         ],
       ),
     );
