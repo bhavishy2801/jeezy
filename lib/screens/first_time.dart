@@ -147,19 +147,27 @@ class _FirstTimeSetupState extends State<FirstTimeSetup> {
                       SizedBox(height: 40),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                          backgroundColor: Colors.blueAccent,
+                          minimumSize: Size(50, 50),
+                          maximumSize: Size(210, 50),
+                          backgroundColor: const Color.fromARGB(30, 255, 255, 255),
                         ),
                         onPressed: saveUserInfo,
-                        child: Text(
-                          "Save & Continue",
-                          style: TextStyle(fontSize: 16),
+                        child: Center(
+                          child: Text(
+                            "Save & Continue",
+                            style: TextStyle(
+                              fontSize: 19,
+                              color: Colors.white,
+                              fontFamily: GoogleFonts.comicNeue().fontFamily,
+                              fontWeight: FontWeight.w900,
+                              ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 30),
                       Image.asset(
                         'assets/images/student.png',
-                        height: 200,
+                        // height: 200,
                       )
                     ],
                   ),
