@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -61,22 +62,23 @@ class _FeedbackPageState extends State<FeedbackPage> {
           key: _formKey,
           child: ListView(
             children: [
-              Text("Your Name (optional)"),
+              Text("Your Name (optional)", style: GoogleFonts.comicNeue(fontSize: 16),),
               TextFormField(
+                style: GoogleFonts.comicNeue(fontSize: 16),
                 controller: _nameController,
                 decoration: InputDecoration(
                   hintText: "Enter your name",
                 ),
               ),
               SizedBox(height: 16),
-              Text("Feedback Category (optional)"),
+              Text("Feedback Category (optional)", style: GoogleFonts.comicNeue(fontSize: 16),),
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
-                hint: Text("Select Category"),
+                hint: Text("Select Category", style: GoogleFonts.comicNeue(fontSize: 16),),
                 items: _categories.map((String category) {
                   return DropdownMenuItem<String>(
                     value: category,
-                    child: Text(category),
+                    child: Text(category, style: GoogleFonts.comicNeue(fontSize: 16),),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
@@ -86,14 +88,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 },
               ),
               SizedBox(height: 16),
-              Text("Feedback (required)"),
+              Text("Feedback (required)", style: GoogleFonts.comicNeue(fontSize: 16),),
               TextFormField(
+                style: GoogleFonts.comicNeue(fontSize: 16),
                 controller: _feedbackController,
                 decoration: InputDecoration(
+                  errorStyle: GoogleFonts.comicNeue(fontSize: 13),
                   hintText: "Enter your feedback",
                 ),
                 maxLines: 5,
                 validator: (value) {
+                  
                   if (value == null || value.trim().isEmpty) {
                     return "Feedback is required";
                   }
@@ -104,7 +109,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ElevatedButton.icon(
                 onPressed: _sendFeedback,
                 icon: Icon(Icons.send),
-                label: Text("Send Feedback via Email"),
+                label: Text("Send Feedback via Email", style: GoogleFonts.comicNeue(fontSize: 16),),
               ),
             ],
           ),

@@ -104,88 +104,108 @@ class _ProfilePageState extends State<ProfilePage> {
   final appBarForegroundColor = isDark ? Colors.white : Colors.black87;
   final dropdownMenuColor = isDark ? Color(0xFF1E1E1E) : Color.fromARGB(255, 249, 248, 246);
 
-    return Scaffold(
-      backgroundColor: darkBackground,
-      appBar: AppBar(
-        title: Text("Edit Profile",
-        style: TextStyle(fontWeight: FontWeight.bold ,fontFamily: GoogleFonts.comicNeue().fontFamily),),
-        backgroundColor: appBarColor,
-        foregroundColor: appBarForegroundColor,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        textTheme: GoogleFonts.comicNeueTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.white))
-          : Padding(
-              padding: const EdgeInsets.all(16),
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                color: cardColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Form(
-                    key: _formKey,
-                    child: ListView(
-                      children: [
-                        _buildTextField(
-                          controller: _nameController,
-                          label: "Display Name",
-                          fillColor: fillColor,
-                          borderColor: borderColor,
-                          textColor: textColor,
-                        ),
-                        const SizedBox(height: 16),
-                        _buildDropdownField(
-                          controller: _classController,
-                          label: "Class",
-                          options: _classOptions,
-                          fillColor: fillColor,
-                          borderColor: borderColor,
-                          textColor: textColor,
-                          dropdownMenuColor: dropdownMenuColor,
-                        ),
-                        const SizedBox(height: 16),
-                        _buildDropdownField(
-                          controller: _yearController,
-                          label: "Appearing Year",
-                          options: _yearOptions,
-                          fillColor: fillColor,
-                          borderColor: borderColor,
-                          textColor: textColor,
-                          dropdownMenuColor: dropdownMenuColor,
-                        ),
-                        const SizedBox(height: 16),
-                        _buildDropdownField(
-                          controller: _boardController,
-                          label: "Board of Education",
-                          options: _boardOptions,
-                          fillColor: fillColor,
-                          borderColor: borderColor,
-                          textColor: textColor,
-                          dropdownMenuColor: dropdownMenuColor,
-                        ),
-                        const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: _saveProfile,
-                            icon: const Icon(Icons.save),
-                            label: const Text("Save"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+      child: Scaffold(
+        backgroundColor: darkBackground,
+        appBar: AppBar(
+          title: Text("Edit Profile",
+          style: TextStyle(fontWeight: FontWeight.bold ,fontFamily: GoogleFonts.comicNeue().fontFamily),),
+          backgroundColor: appBarColor,
+          foregroundColor: appBarForegroundColor,
+        ),
+        body: isLoading
+            ? const Center(child: CircularProgressIndicator(color: Colors.white))
+            : Padding(
+                padding: const EdgeInsets.all(16),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  color: cardColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Form(
+                      key: _formKey,
+                      child: ListView(
+                        children: [
+                          _buildTextField(
+                            controller: _nameController,
+                            label: "Display Name",
+                            fillColor: fillColor,
+                            borderColor: borderColor,
+                            textColor: textColor,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildDropdownField(
+                            controller: _classController,
+                            label: "Class",
+                            options: _classOptions,
+                            fillColor: fillColor,
+                            borderColor: borderColor,
+                            textColor: textColor,
+                            dropdownMenuColor: dropdownMenuColor,
+                            style: GoogleFonts.comicNeue(),
+                          ),
+                          const SizedBox(height: 16),
+                          _buildDropdownField(
+                            controller: _yearController,
+                            label: "Appearing Year",
+                            options: _yearOptions,
+                            fillColor: fillColor,
+                            borderColor: borderColor,
+                            textColor: textColor,
+                            dropdownMenuColor: dropdownMenuColor,
+                            style: GoogleFonts.comicNeue(),
+                          ),
+                          const SizedBox(height: 16),
+                          _buildDropdownField(
+                            controller: _boardController,
+                            label: "Board of Education",
+                            options: _boardOptions,
+                            fillColor: fillColor,
+                            borderColor: borderColor,
+                            textColor: textColor,
+                            dropdownMenuColor: dropdownMenuColor,
+                            style: GoogleFonts.comicNeue(),
+                          ),
+                          const SizedBox(height: 24),
+                          Align(
+                            alignment: Alignment.center, // Optional: to center horizontally
+                            child: IntrinsicWidth( // 👈 Shrink to fit content
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minWidth: 120, // 👈 Set your max width
+                                  maxHeight: 50
+                                ),
+                                child: ElevatedButton.icon(
+                                  onPressed: _saveProfile,
+                                  icon: const Icon(Icons.save),
+                                  label: const Text("Save", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color.fromARGB(184, 53, 61, 73),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],  
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 
@@ -229,6 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
     required Color borderColor,
     required Color textColor,
     required Color dropdownMenuColor,
+    required TextStyle style,
   }) {
     return DropdownButtonFormField<String>(
       value: controller.text.isNotEmpty ? controller.text : null,
