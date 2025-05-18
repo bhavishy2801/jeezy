@@ -221,7 +221,6 @@ class _ProfilePageState extends State<ProfilePage> {
       style: TextStyle(color: textColor),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey[400]),
         filled: true,
         fillColor: fillColor,
         border: OutlineInputBorder(
@@ -257,7 +256,6 @@ class _ProfilePageState extends State<ProfilePage> {
       style: TextStyle(color: textColor),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey[400]),
         filled: true,
         fillColor: fillColor,
         border: OutlineInputBorder(

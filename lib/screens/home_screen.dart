@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
         
         
           ListTile(
-            leading: Icon(Icons.share, color: theme.colorScheme.primary),
+            leading: Icon(Icons.share, color: isDark ? Color(0xFFBDBDBD) : Color(0xFF1C1B1F),),
             title: Text("Share App", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
             onTap: () async {
               final box = context.findRenderObject() as RenderBox?;
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
           ),
         
           ListTile(
-            leading: Icon(Icons.feedback, color: theme.colorScheme.primary),
+            leading: Icon(Icons.feedback, color: isDark ? Color(0xFFBDBDBD) : Color(0xFF1C1B1F),),
             title: Text("Send Feedback", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
             onTap: () {
               // Open mail app or feedback form link
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
           ),
         
           ListTile(
-            leading: Icon(Icons.privacy_tip, color: theme.colorScheme.primary),
+            leading: Icon(Icons.privacy_tip, color: isDark ? Color(0xFFBDBDBD) : Color(0xFF1C1B1F),),
             title: Text("Privacy Policy", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
             onTap: () {
               // Navigate to privacy policy screen or open URL
@@ -306,11 +306,9 @@ class _HomePageState extends State<HomePage> {
                     Text(data['display_name'] ?? "User",
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
-                    Text("Class: ${data['user_class'] ?? 'Not set'}",
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700])),
-                    Text("JEE Year: ${data['jee_year'] ?? 'Not set'}",
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700])),
-                  ],
+                    Text("${data['user_class'] ?? 'Not set'} ◉ ${data['jee_year'] ?? 'Not set'}",
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: isDark ? const Color.fromARGB(255, 180, 180, 180) : Colors.black54)),
+                    ],
                 ),
               ),
             ],
@@ -333,12 +331,14 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           Switch(
+            
             value: isDark,
             onChanged: (_) {
               setState(() {
                 themeNotifier.toggleTheme();
               });
             },
+            activeColor: Color.fromARGB(255, 242, 202, 249), // thumb color
           ),
         ],
       ),
@@ -460,7 +460,7 @@ class _HomePageState extends State<HomePage> {
   }) {
     return ListTile(
       leading: Icon(icon),
-      title: Text(title),
+      title: Text(title, style: GoogleFonts.comicNeue(fontWeight: FontWeight.bold, fontSize: 18),),
       onTap: onTap,
     );
   }
@@ -481,8 +481,8 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (context) => LoginPage()),
           );
         },
-        icon: const Icon(Icons.logout),
-        label: const Text("Sign out"),
+        icon: Icon(Icons.logout, color: isDark ? Color.fromARGB(255, 242, 202, 249) : Colors.black,),
+        label: Text("Sign out", style: TextStyle(color: isDark ? Color.fromARGB(255, 242, 202, 249) : Colors.black, fontFamily: GoogleFonts.comicNeue().fontFamily, fontWeight: FontWeight.bold),),
       ),
     );
   }
@@ -494,14 +494,38 @@ class _HomePageState extends State<HomePage> {
           if (index == 0) {
             setState(() => _currentIndex = 0);
           } else if (index == 1) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => NotesScreen()));
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => NotesScreen(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 300),
+              ),
+            );
           } else if (index == 2) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => TestsScreen()));
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => TestsScreen(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 300),
+              ),
+            );
           } else if (index == 3) {
             final updatedUser = await Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => ValueListenableBuilder(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => ValueListenableBuilder(
                   valueListenable: themeNotifier,
                   builder: (context, currentThemeMode, _) {
                     return ProfilePage(
@@ -510,6 +534,13 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 300),
               ),
             );
 

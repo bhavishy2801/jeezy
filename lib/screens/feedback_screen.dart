@@ -21,7 +21,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
   final List<String> _categories = [
     "Bug Report",
     "Feature Request",
-    "General Feedback"
+    "General Feedback",
+    "Other"
   ];
 
   @override
@@ -55,7 +56,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Send Feedback")),
+      appBar: AppBar(title: Text("Send Feedback", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w500),)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -70,7 +71,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   hintText: "Enter your name",
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 30),
               Text("Feedback Category (optional)", style: GoogleFonts.comicNeue(fontSize: 16),),
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
@@ -87,7 +88,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 30),
               Text("Feedback (required)", style: GoogleFonts.comicNeue(fontSize: 16),),
               TextFormField(
                 style: GoogleFonts.comicNeue(fontSize: 16),
@@ -105,11 +106,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 30),
               ElevatedButton.icon(
                 onPressed: _sendFeedback,
                 icon: Icon(Icons.send),
-                label: Text("Send Feedback via Email", style: GoogleFonts.comicNeue(fontSize: 16),),
+                label: Text("Send Feedback via Email", style: GoogleFonts.comicNeue(fontSize: 16, fontWeight: FontWeight.bold),),
               ),
             ],
           ),

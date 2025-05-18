@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: Color.fromARGB(255, 12, 20, 41),
             ),
             colorScheme: const ColorScheme.dark(
-              primary: Color(0xFF6C63FF),
+              primary: Color.fromARGB(255, 242, 202, 249),
               secondary: Color(0xFF9C27B0),
               background: Color.fromARGB(255, 12, 20, 41),
               surface: Color(0xFF1C2542),
