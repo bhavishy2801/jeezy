@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
               ShareParams(
                 text: '📱 Ace your JEE preparation with *Jeezy*! 🚀\n\n'
                 'Get access to high-quality notes, mock tests, and curated materials for both JEE Main & Advanced — all in one place.\n\n'
-                'Download now and supercharge your prep: https://github.com/bhavishy2801\n\n',
+                'Download now and supercharge your prep: https://github.com/bhavishy2801/jeezy\n\n',
                 subject: '🔥 Must-Have App for Every JEE Aspirant – Jeezy!',
                 title: 'Check out Jeezy – your ultimate JEE prep companion!',
                 sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
