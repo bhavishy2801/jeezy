@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jeezy/screens/bookmark_screen.dart';
 import 'package:jeezy/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jeezy/screens/privacy_policy.dart';
 import 'package:jeezy/screens/profile.dart';
 import 'package:jeezy/main.dart';
 import 'package:jeezy/screens/notes_screen.dart';
+import 'package:jeezy/screens/progress_screen.dart';
 import 'package:jeezy/screens/tests_screen.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:jeezy/screens/feedback_screen.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -115,100 +119,141 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildDrawer(BuildContext context, bool isDark, ThemeData theme) {
     return Drawer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 40),
 
-          _buildProfileSection(context, isDark), // Profile Section
-          const Divider(),
-
-          _buildDarkModeToggle(isDark), // Dark Mode Toggle
-          const Divider(),
-
-          _buildDrawerNavigationItems(context, theme), // Navigation Items
-          const Divider(),
-
-
-        ListTile(
-          leading: Icon(Icons.share, color: theme.colorScheme.primary),
-          title: Text("Share App"),
-          onTap: () async {
-            final box = context.findRenderObject() as RenderBox?;
-            Navigator.pop(context);
-
-            final result = await SharePlus.instance.share(
-              ShareParams(
-                text: '📱 Ace your JEE preparation with *Jeezy*! 🚀\n\n'
-                'Get access to high-quality notes, mock tests, and curated materials for both JEE Main & Advanced — all in one place.\n\n'
-                'Download now and supercharge your prep: https://github.com/bhavishy2801/jeezy\n\n',
-                subject: '🔥 Must-Have App for Every JEE Aspirant – Jeezy!',
-                title: 'Check out Jeezy – your ultimate JEE prep companion!',
-                sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-              ),
-            );
-
-            // final scaffoldMessenger = ScaffoldMessenger.of(context);
-            // scaffoldMessenger.showSnackBar(
-            //   SnackBar(
-            //     content: Text('Share result: ${result.status.name}', style: TextStyle(color: Colors.white),),
-            //     duration: const Duration(seconds: 2),
-            //     backgroundColor: Color.fromARGB(255, 12, 20, 41),
-            //   ),
-            // );
-          },
-        ),
-
-        ListTile(
-          leading: Icon(Icons.feedback, color: theme.colorScheme.primary),
-          title: Text("Send Feedback"),
-          onTap: () {
-            // Open mail app or feedback form link
-            Navigator.pop(context);
-          },
-        ),
-
-        ListTile(
-          leading: Icon(Icons.privacy_tip, color: theme.colorScheme.primary),
-          title: Text("Privacy Policy"),
-          onTap: () {
-            // Navigate to privacy policy screen or open URL
-            Navigator.pop(context);
-          },
-        ),
-
-
-        _buildSignOutButton(context, isDark), // Sign Out Button
-
-        Expanded(child: Container()),  // pushes the text to bottom
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-          child: Text(
-            "Version 1.0.0",
-            style: TextStyle(
-              fontSize: 14,
-              color: isDark ? Colors.grey[400] : Colors.grey[600],
-              fontWeight: FontWeight.w700,
-              fontFamily: GoogleFonts.comicNeue().fontFamily,
-            ),
+      child: DefaultTextStyle(
+        style: GoogleFonts.comicNeue(
+        textStyle: theme.textTheme.bodyMedium,
+      ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 40),
+        
+            _buildProfileSection(context, isDark), // Profile Section
+            const Divider(),
+        
+            _buildDarkModeToggle(isDark), // Dark Mode Toggle
+            const Divider(),
+        
+            _buildDrawerNavigationItems(context, theme), // Navigation Items
+            const Divider(),
+        
+        
+          ListTile(
+            leading: Icon(Icons.share, color: theme.colorScheme.primary),
+            title: Text("Share App", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
+            onTap: () async {
+              final box = context.findRenderObject() as RenderBox?;
+              Navigator.pop(context);
+        
+              // final result = 
+              await SharePlus.instance.share(
+                ShareParams(
+                  text: '📱 Ace your JEE preparation with *Jeezy*! 🚀\n\n'
+                  'Get access to high-quality notes, mock tests, and curated materials for both JEE Main & Advanced — all in one place.\n\n'
+                  'Download now and supercharge your prep: https://github.com/bhavishy2801/jeezy\n\n',
+                  subject: '🔥 Must-Have App for Every JEE Aspirant – Jeezy!',
+                  title: 'Check out Jeezy – your ultimate JEE prep companion!',
+                  sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+                ),
+              );
+        
+              // final scaffoldMessenger = ScaffoldMessenger.of(context);
+              // scaffoldMessenger.showSnackBar(
+              //   SnackBar(
+              //     content: Text('Share result: ${result.status.name}', style: TextStyle(color: Colors.white),),
+              //     duration: const Duration(seconds: 2),
+              //     backgroundColor: Color.fromARGB(255, 12, 20, 41),
+              //   ),
+              // );
+            },
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
+        
+          ListTile(
+            leading: Icon(Icons.feedback, color: theme.colorScheme.primary),
+            title: Text("Send Feedback", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
+            onTap: () {
+              // Open mail app or feedback form link
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => FeedbackPage(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.ease;
+                  final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 400),
+                ),
+              );
+            },
+          ),
+        
+          ListTile(
+            leading: Icon(Icons.privacy_tip, color: theme.colorScheme.primary),
+            title: Text("Privacy Policy", style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700, fontSize: 18),),
+            onTap: () {
+              // Navigate to privacy policy screen or open URL
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => PrivacyPolicyPage(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.ease;
+                  final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                  );
+                },
+                transitionDuration: Duration(milliseconds: 400),
+                ),
+              );
+            },
+          ),
+        
+        
+          _buildSignOutButton(context, isDark), // Sign Out Button
+        
+          Expanded(child: Container()),  // pushes the text to bottom
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
             child: Text(
-              'Made with ❤ by Bhavishy Agrawal',
+              "Version 1.0.0",
               style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
+                fontSize: 14,
                 color: isDark ? Colors.grey[400] : Colors.grey[600],
-                // fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w700,
                 fontFamily: GoogleFonts.comicNeue().fontFamily,
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: Text(
+                'Made with ❤ by Bhavishy Agrawal',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  // fontStyle: FontStyle.italic,
+                  fontFamily: GoogleFonts.comicNeue().fontFamily,
+                ),
+              ),
+            ),
+          ),
+          ],
         ),
-        ],
       ),
     );
   }
@@ -339,6 +384,56 @@ class _HomePageState extends State<HomePage> {
               context,
               PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) => TestsScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+                final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+                );
+              },
+              transitionDuration: Duration(milliseconds: 400),
+              ),
+            );
+          },
+        ),
+        _buildDrawerItem(
+          context,
+          icon: Icons.bookmark,
+          title: "My Bookmarks",
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => BookmarksPage(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.ease;
+                final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+                );
+              },
+              transitionDuration: Duration(milliseconds: 400),
+              ),
+            );
+          },
+        ),
+        _buildDrawerItem(
+          context,
+          icon: Icons.track_changes,
+          title: "My Progress",
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => ProgressPage(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;
