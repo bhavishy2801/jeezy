@@ -35,7 +35,7 @@ class PrivacyPolicyPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Privacy Policy for Jeezy",
+                "Privacy Policy for JEEzy",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               const SizedBox(height: 24),
 
               _buildBodyText(
-                "Thank you for using Jeezy. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information.",
+                "Thank you for using JEEzy. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information.",
               ),
 
               _buildSectionTitle("1. Information We Collect"),
@@ -103,7 +103,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               const SizedBox(height: 32),
               const Center(
                 child: Text(
-                  "By using Jeezy, you agree to the collection and use of your information in accordance with this policy.",
+                  "By using JEEzy, you agree to the collection and use of your information in accordance with this policy.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
