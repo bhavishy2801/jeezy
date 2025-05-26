@@ -12,6 +12,7 @@ import 'package:jeezy/screens/progress_screen.dart';
 import 'package:jeezy/screens/tests_screen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:jeezy/screens/feedback_screen.dart';
+import 'package:jeezy/screens/ai_assistant.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
     _pages.addAll([
     HomeContent(),
+    AIAssistantPage(),
   ]);
   }
 
@@ -400,6 +402,31 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         _buildDrawerItem(
+                context,
+                icon: Icons.support_agent,
+                title: "Assistant",
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => AIAssistantPage(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+                        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                      transitionDuration: Duration(milliseconds: 400),
+                    ),
+                  );
+                },
+              ),
+        _buildDrawerItem(
           context,
           icon: Icons.bookmark,
           title: "My Bookmarks",
@@ -507,7 +534,21 @@ class _HomePageState extends State<HomePage> {
                 transitionDuration: Duration(milliseconds: 300),
               ),
             );
-          } else if (index == 2) {
+          }
+          else if (index == 2) {
+              // Assistant page navigation
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => AIAssistantPage(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                  transitionDuration: Duration(milliseconds: 300),
+                ),
+              );
+            }
+          else if (index == 3) {
             Navigator.push(
               context,
               PageRouteBuilder(
@@ -521,7 +562,8 @@ class _HomePageState extends State<HomePage> {
                 transitionDuration: Duration(milliseconds: 300),
               ),
             );
-          } else if (index == 3) {
+          }
+          else if (index == 4) {
             final updatedUser = await Navigator.push(
               context,
               PageRouteBuilder(
@@ -561,6 +603,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.note),
           label: 'Notes',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.support_agent),
+          label: 'Assistant',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.assignment),
