@@ -109,7 +109,7 @@ class _AIAssistantPageState extends State<AIAssistantPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Assistant'),
+        title: Text('AI Assistant', style: GoogleFonts.comicNeue(fontSize: 24, fontWeight: FontWeight.w600),),
       ),
       body: Column(
         children: [
