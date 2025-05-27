@@ -4,13 +4,13 @@ import 'package:jeezy/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jeezy/screens/loading_decider.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+// import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   
-  await Gemini.init(apiKey: 'API_KEY');
+  // await Gemini.init(apiKey: 'API_KEY');
 
   try {
     await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);

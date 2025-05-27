@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+// import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jeezy/services/gemini_service.dart';
 
 class AIAssistantPage extends StatefulWidget {
   const AIAssistantPage({Key? key}) : super(key: key);
@@ -57,8 +58,7 @@ class _AIAssistantPageState extends State<AIAssistantPage> {
     });
 
     try {
-      final response = await Gemini.instance.text(userMessage);
-      final fullText = response?.output ?? 'No response';
+      final fullText = await GeminiService.getResponse("$userMessage. Dont' give me a very long answer. Give a concise answer.");
 
       for (int i = 0; i < fullText.length; i++) {
         await Future.delayed(const Duration(milliseconds: 20));
@@ -90,7 +90,7 @@ class _AIAssistantPageState extends State<AIAssistantPage> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: Color.alphaBlend(
-            baseColor.withAlpha(isUser ? 30 : 25),
+            baseColor.withAlpha(isUser ? 50 : 25),
             blendColor.withAlpha(isUser ? 30 : 10),
           ),
           borderRadius: BorderRadius.circular(12),
@@ -109,7 +109,7 @@ class _AIAssistantPageState extends State<AIAssistantPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AI Assistant', style: GoogleFonts.comicNeue(fontSize: 24, fontWeight: FontWeight.w600),),
+        title: Text('JEEzy AI', style: GoogleFonts.comicNeue(fontSize: 24, fontWeight: FontWeight.w600),),
       ),
       body: Column(
         children: [
