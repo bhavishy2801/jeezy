@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, use_build_context_synchronously, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -594,14 +596,15 @@ class _HomePageState extends State<HomePage> {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: theme.colorScheme.primary,
       unselectedItemColor: theme.colorScheme.onSurface.withOpacity(0.6),
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: GoogleFonts.comicNeue().fontFamily),
+      selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: GoogleFonts.comicNeue().fontFamily),
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.note),
+          icon: Icon(Icons.school),
           label: 'Notes',
         ),
         BottomNavigationBarItem(

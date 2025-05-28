@@ -13,8 +13,8 @@ class GeminiService {
     List<Map<String, dynamic>> contents = [];
     
     if (chatHistory != null && chatHistory.isNotEmpty) {
-      final recentHistory = chatHistory.length > 10 
-          ? chatHistory.sublist(chatHistory.length - 10) 
+      final recentHistory = chatHistory.length > 20 
+          ? chatHistory.sublist(chatHistory.length - 20) 
           : chatHistory;
       
       for (var message in recentHistory) {
