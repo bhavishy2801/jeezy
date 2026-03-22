@@ -1,4 +1,8 @@
-# JEEzy
+<div align="center">
+  <img src="assets/images/jeezy.jpg" width="200" alt="JEEzy logo">
+  <br>
+  <h1>JEEzy</h1>
+</div>
 
 [![Flutter](https://img.shields.io/badge/Flutter-%5E3.7.2-02569B?logo=flutter)](https://flutter.dev/)
 [![Firebase](https://img.shields.io/badge/backend-Firebase-FFCA28?logo=firebase)](https://firebase.google.com/)
